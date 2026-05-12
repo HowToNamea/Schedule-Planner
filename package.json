@@ -1,0 +1,38 @@
+{
+  "name": "schedule-planner",
+  "version": "1.0.0",
+  "description": "日程规划桌面应用",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "package": "electron-vite build && electron-builder --win",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "react": "^19.2.6",
+    "react-big-calendar": "^1.19.4",
+    "react-dom": "^19.2.6",
+    "sql.js": "^1.14.1",
+    "uuid": "^14.0.0",
+    "zustand": "^5.0.13"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.4",
+    "@types/react": "^19.2.14",
+    "@types/react-big-calendar": "^1.16.3",
+    "@types/react-dom": "^19.2.3",
+    "@types/uuid": "^10.0.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.1",
+    "electron-vite": "^5.0.0",
+    "typescript": "^6.0.3",
+    "vite": "^6.4.2"
+  }
+}

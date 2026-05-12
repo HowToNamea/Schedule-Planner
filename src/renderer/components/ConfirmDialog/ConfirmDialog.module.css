@@ -1,0 +1,64 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 250;
+}
+
+.dialog {
+  background: var(--color-bg-white);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  width: 380px;
+  max-width: 90vw;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.message {
+  font-size: 14px;
+  color: var(--color-text-light);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancelBtn {
+  padding: 8px 20px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.cancelBtn:hover {
+  background: var(--color-border);
+}
+
+.deleteBtn {
+  padding: 8px 20px;
+  background: var(--color-danger);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.deleteBtn:hover {
+  background: var(--color-danger-hover);
+}

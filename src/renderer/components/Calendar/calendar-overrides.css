@@ -1,0 +1,127 @@
+.rbc-calendar {
+  font-family: var(--font-family);
+  height: 100%;
+}
+
+.rbc-toolbar {
+  display: none;
+}
+
+.rbc-header {
+  padding: 8px 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-light);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-white);
+}
+
+.rbc-month-view,
+.rbc-time-view {
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.rbc-month-row {
+  border-top: 1px solid var(--color-border);
+}
+
+.rbc-day-bg {
+  border-right: 1px solid var(--color-bg);
+}
+
+.rbc-off-range-bg {
+  background: #F8FAFC;
+}
+
+.rbc-today {
+  background: rgba(74, 144, 217, 0.06);
+}
+
+.rbc-date-cell {
+  padding: 4px 8px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.rbc-date-cell.rbc-now {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.rbc-event {
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 2px 6px;
+}
+
+.rbc-event:hover {
+  opacity: 0.9;
+}
+
+.rbc-event-label {
+  font-size: 11px;
+}
+
+.rbc-show-more {
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rbc-time-view .rbc-header {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.rbc-time-header-content {
+  border-left: 1px solid var(--color-border);
+}
+
+.rbc-time-content {
+  border-top: 1px solid var(--color-border);
+}
+
+.rbc-time-content > * + * > * {
+  border-left: 1px solid var(--color-bg);
+}
+
+.rbc-timeslot-group {
+  border-bottom: 1px solid var(--color-bg);
+  min-height: 48px;
+}
+
+.rbc-time-slot {
+  border-top: none;
+}
+
+.rbc-label {
+  font-size: 12px;
+  color: var(--color-text-light);
+}
+
+.rbc-current-time-indicator {
+  background: var(--color-danger);
+  height: 2px;
+}
+
+.rbc-allday-cell {
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.rbc-btn-group button {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  background: var(--color-bg-white);
+}
+
+.rbc-btn-group button.rbc-active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}

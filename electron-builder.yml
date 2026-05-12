@@ -1,0 +1,23 @@
+appId: com.schedule-planner.app
+productName: Schedule Planner
+electronDownload:
+  mirror: https://npmmirror.com/mirrors/electron/
+directories:
+  output: dist
+  buildResources: resources
+files:
+  - out/**/*
+win:
+  icon: resources/icon.png
+  target:
+    - target: nsis
+      arch: [x64]
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Schedule Planner
+extraResources:
+  - from: resources/
+    to: .

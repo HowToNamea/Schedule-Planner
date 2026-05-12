@@ -1,0 +1,30 @@
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-text-light);
+  gap: 8px;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+.emptyTitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.emptyDesc {
+  font-size: 14px;
+}
