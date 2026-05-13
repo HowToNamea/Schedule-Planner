@@ -8,7 +8,6 @@ directories:
 files:
   - out/**/*
 win:
-  icon: resources/icon.png
   target:
     - target: nsis
       arch: [x64]
