@@ -8,6 +8,88 @@ import { v4 as uuidv4 } from 'uuid'
 let db: Database
 let SQL: SqlJsStatic
 let DB_PATH: string
+let DATA_DIR: string
+
+const STORAGE_CONFIG_PATH = join(app.getPath('userData'), 'storage_config.json')
+
+function loadStorageConfig(): string | null {
+  try {
+    if (existsSync(STORAGE_CONFIG_PATH)) {
+      const raw = JSON.parse(readFileSync(STORAGE_CONFIG_PATH, 'utf-8'))
+      return raw.dataDir || null
+    }
+  } catch { /* ignore corrupt file */ }
+  return null
+}
+
+function saveStorageConfig(dir: string): void {
+  writeFileSync(STORAGE_CONFIG_PATH, JSON.stringify({ dataDir: dir }), 'utf-8')
+}
+
+export function getDataDir(): string {
+  if (DATA_DIR) return DATA_DIR
+  const custom = loadStorageConfig()
+  DATA_DIR = custom || app.getPath('userData')
+  return DATA_DIR
+}
+
+export function changeDataDir(newDir: string): { success: boolean; error?: string } {
+  try {
+    if (!existsSync(newDir)) {
+      mkdirSync(newDir, { recursive: true })
+    }
+
+    const oldDir = getDataDir()
+    const oldDb = join(oldDir, 'schedule.db')
+    const oldImages = join(oldDir, 'images')
+    const newDb = join(newDir, 'schedule.db')
+    const newImages = join(newDir, 'images')
+
+    // Save and close current DB
+    if (db) {
+      saveDb()
+      db.close()
+    }
+
+    // Migrate database
+    if (existsSync(oldDb)) {
+      copyFileSync(oldDb, newDb)
+    }
+
+    // Migrate images
+    if (existsSync(oldImages)) {
+      if (!existsSync(newImages)) {
+        mkdirSync(newImages, { recursive: true })
+      }
+      const { readdirSync, copyFileSync: cfs } = require('fs')
+      for (const file of readdirSync(oldImages)) {
+        const src = join(oldImages, file)
+        const dst = join(newImages, file)
+        if (existsSync(src)) {
+          try { cfs(src, dst) } catch { /* skip failed copies */ }
+        }
+      }
+    }
+
+    // Save new config
+    saveStorageConfig(newDir)
+    DATA_DIR = newDir
+    DB_PATH = newDb
+
+    // Reopen DB at new location
+    if (existsSync(newDb)) {
+      const buffer = readFileSync(newDb)
+      db = new SQL.Database(buffer)
+    } else {
+      db = new SQL.Database()
+    }
+    db.run('PRAGMA foreign_keys = ON')
+
+    return { success: true }
+  } catch (e) {
+    return { success: false, error: String(e) }
+  }
+}
 
 function saveDb(): void {
   const data = db.export()
@@ -16,7 +98,8 @@ function saveDb(): void {
 }
 
 export async function initDatabase(): Promise<void> {
-  DB_PATH = join(app.getPath('userData'), 'schedule.db')
+  DATA_DIR = getDataDir()
+  DB_PATH = join(DATA_DIR, 'schedule.db')
   SQL = await initSqlJs()
 
   if (existsSync(DB_PATH)) {
@@ -81,7 +164,7 @@ export async function initDatabase(): Promise<void> {
 }
 
 function getImageDir(): string {
-  const dir = join(app.getPath('userData'), 'images')
+  const dir = join(getDataDir(), 'images')
   if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true })
   }

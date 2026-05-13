@@ -72,6 +72,9 @@ declare global {
       settings: {
         getAll: () => Promise<Record<string, string>>
         set: (key: string, value: string) => Promise<void>
+        getDataDir: () => Promise<string>
+        pickFolder: () => Promise<string | null>
+        changeDataDir: (newDir: string) => Promise<{ success: boolean; error?: string }>
       }
     }
   }

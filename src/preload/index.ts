@@ -21,7 +21,10 @@ const api = {
   },
   settings: {
     getAll: () => ipcRenderer.invoke('settings:getAll'),
-    set: (key: string, value: string) => ipcRenderer.invoke('settings:set', key, value)
+    set: (key: string, value: string) => ipcRenderer.invoke('settings:set', key, value),
+    getDataDir: () => ipcRenderer.invoke('settings:getDataDir'),
+    pickFolder: () => ipcRenderer.invoke('settings:pickFolder'),
+    changeDataDir: (newDir: string) => ipcRenderer.invoke('settings:changeDataDir', newDir)
   }
 }
 

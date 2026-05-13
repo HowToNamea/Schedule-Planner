@@ -12,7 +12,9 @@ import {
   getTaskImages,
   deleteTaskImage,
   getAllSettings,
-  setSetting
+  setSetting,
+  getDataDir,
+  changeDataDir
 } from './database'
 
 export function registerIpcHandlers(): void {
@@ -44,4 +46,13 @@ export function registerIpcHandlers(): void {
   // Settings
   ipcMain.handle('settings:getAll', () => getAllSettings())
   ipcMain.handle('settings:set', (_e, key: string, value: string) => setSetting(key, value))
+  ipcMain.handle('settings:getDataDir', () => getDataDir())
+  ipcMain.handle('settings:pickFolder', async () => {
+    const result = await dialog.showOpenDialog({
+      properties: ['openDirectory', 'createDirectory']
+    })
+    if (result.canceled || result.filePaths.length === 0) return null
+    return result.filePaths[0]
+  })
+  ipcMain.handle('settings:changeDataDir', (_e, newDir: string) => changeDataDir(newDir))
 }
